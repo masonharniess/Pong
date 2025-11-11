@@ -6,6 +6,7 @@ public class Window extends JFrame implements Runnable {
 
     Graphics2D g2;
     KL keyListener = new KL();
+    Rectangle playerOne, ai, ball;
 
     public Window () {
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -14,13 +15,21 @@ public class Window extends JFrame implements Runnable {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addKeyListener(keyListener);
+
         g2 = (Graphics2D)this.getGraphics();
 
+        playerOne = new Rectangle(Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Color.WHITE);
+        ai = new Rectangle(Constants.SCREEN_WIDTH - Constants.PADDLE_WIDTH - Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Constants.PADDLE_COLOUR);
+        ball = new Rectangle(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, Constants.BALL_WIDTH, Constants.PADDLE_COLOUR);
     }
 
     public void update(double dt) {
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+
+        playerOne.draw(g2);
+        ai.draw(g2);
+        ball.draw(g2);
 
         if (keyListener.isKeyPressed(KeyEvent.VK_UP)) {
             System.out.println("The user is pressing the up arrow.");
