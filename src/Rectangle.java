@@ -26,7 +26,19 @@ public class Rectangle {
         return y;
     }
 
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getX() {
+        return x;
+    }
+
     public double getHeight() {
         return height;
+    }
+
+    public double getWidth() {
+        return width;
     }
 }
