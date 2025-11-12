@@ -31,36 +31,48 @@ public class Ball {
     }
 
     public void update(double dt) {
+
+        double ballLeft   = rectangle.getX();
+        double ballRight  = ballLeft + rectangle.getWidth();
+        double ballTop    = rectangle.getY();
+        double ballBottom = ballTop + rectangle.getHeight();
+
+        double leftPaddleLeft   = leftPaddle.getX();
+        double leftPaddleRight  = leftPaddleLeft + leftPaddle.getWidth();
+        double leftPaddleTop    = leftPaddle.getY();
+        double leftPaddleBottom = leftPaddleTop + leftPaddle.getHeight();
+
+        double rightPaddleLeft   = rightPaddle.getX();
+        double rightPaddleRight  = rightPaddleLeft + rightPaddle.getWidth();
+        double rightPaddleTop    = rightPaddle.getY();
+        double rightPaddleBottom = rightPaddleTop + rightPaddle.getHeight();
+
         if (velocityX < 0) {
-            if (this.rectangle.getX() <= this.leftPaddle.getX() + this.leftPaddle.getWidth() &&
-                    this.rectangle.getY() >= this.leftPaddle.getY() &&
-                    this.rectangle.getY() <= this.leftPaddle.getY() + this.leftPaddle.getHeight() &&
-                    this.rectangle.getX() >= this.leftPaddle.getX())
-            {
+            boolean touchingLeftPaddleHoriz = ballLeft <= leftPaddleRight && ballRight >= leftPaddleLeft;
+            boolean touchingLeftPaddleVert = ballBottom >= leftPaddleTop && ballTop <= leftPaddleBottom;
+
+            if (touchingLeftPaddleHoriz && touchingLeftPaddleVert) {
                 bounceOff(leftPaddle);
-            } else if (this.rectangle.getX() + this.rectangle.getWidth() < this.leftPaddle.getX()) {
+            } else if (ballRight < leftPaddleLeft) {
                 System.out.println("Player has lost 1 point.");
             }
+
         } else if (velocityX > 0) {
-            if (this.rectangle.getX() + this.rectangle.getWidth() >= this.rightPaddle.getX() &&
-                    this.rectangle.getX() <= this.rightPaddle.getX() + this.rightPaddle.getWidth() &&
-                    this.rectangle.getY() >= this.rightPaddle.getY() &&
-                    this.rectangle.getY() <= this.rightPaddle.getY() + this.rightPaddle.getHeight())
-            {
+            boolean touchingRightPaddleHoriz = ballRight >= rightPaddleLeft && ballLeft <= rightPaddleRight;
+            boolean touchingRightPaddleVert = ballBottom >= rightPaddleTop && ballTop <= rightPaddleBottom;
+
+            if (touchingRightPaddleHoriz && touchingRightPaddleVert) {
                 bounceOff(rightPaddle);
-            } else if (this.rectangle.getX() + this.rectangle.getWidth() > this.rightPaddle.getX() + this.rightPaddle.getWidth()) {
+            } else if (ballLeft > rightPaddleRight) {
                 System.out.println("AI has lost 1 point.");
             }
         }
 
-        if (velocityY > 0) {
-            if (this.rectangle.getY() + this.rectangle.getHeight() > Constants.SCREEN_HEIGHT) {
-                this.velocityY *= -1;
-            }
-        } else if (velocityY < 0) {
-            if (this.rectangle.getY() < Constants.TOOLBAR_HEIGHT) {
-                this.velocityY *= -1;
-            }
+        boolean hitBottom = (velocityY > 0) && (ballBottom > Constants.SCREEN_HEIGHT);
+        boolean hitTop    = (velocityY < 0) && (ballTop    < Constants.TOOLBAR_HEIGHT);
+
+        if (hitBottom || hitTop) {
+            velocityY *= -1;
         }
 
         this.rectangle.setX(this.rectangle.getX() + velocityX * dt);
