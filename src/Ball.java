@@ -2,7 +2,7 @@ public class Ball {
     public Rectangle rectangle;
     public Rectangle leftPaddle, rightPaddle;
 
-    private double velocityY = 400.0;
+    private double velocityY = 30.0;
     private double velocityX = -150.0;
 
     public Ball(Rectangle rectangle, Rectangle leftPaddle, Rectangle rightPaddle) {
@@ -29,6 +29,8 @@ public class Ball {
                     this.rectangle.getY() >= this.rightPaddle.getY() &&
                     this.rectangle.getY() <= this.rightPaddle.getY() + this.rightPaddle.getHeight())
             {
+                this.velocityX *= -1;
+                this.velocityY *= -1;
             } else if (this.rectangle.getX() + this.rectangle.getWidth() > this.rightPaddle.getX() + this.rightPaddle.getWidth()) {
                 System.out.println("AI has lost 1 point.");
             }
