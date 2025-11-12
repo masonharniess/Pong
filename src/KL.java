@@ -5,10 +5,8 @@ import java.util.Arrays;
 public class KL implements KeyListener {
     private boolean keyPressed[] = new boolean[128];
 
-
     @Override
     public void keyTyped(KeyEvent keyEvent) {
-
     }
 
     @Override

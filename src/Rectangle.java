@@ -1,10 +1,11 @@
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class Rectangle {
-    private int x, y, width, height;
+    private double x, y, width, height;
     private Color colour;
 
-    public Rectangle(int x, int y, int width, int height, Color colour) {
+    public Rectangle(double x, double y, double width, double height, Color colour) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -14,6 +15,18 @@ public class Rectangle {
 
     public void draw(Graphics2D g2) {
         g2.setColor(colour);
-        g2.fillRect(x, y, width, height);
+        g2.fill(new Rectangle2D.Double(x, y, width, height));
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getHeight() {
+        return height;
     }
 }

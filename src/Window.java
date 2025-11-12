@@ -1,12 +1,12 @@
 import javax.swing.JFrame;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class Window extends JFrame implements Runnable {
 
-    Graphics2D g2;
-    KL keyListener = new KL();
-    Rectangle playerOne, ai, ball;
+    public Graphics2D g2;
+    public KL keyListener = new KL();
+    public Rectangle playerOne, ai, ball;
+    public PlayerController playerController;
 
     public Window () {
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -15,27 +15,34 @@ public class Window extends JFrame implements Runnable {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addKeyListener(keyListener);
+        Constants.TOOLBAR_HEIGHT = this.getInsets().top;
+        Constants.INSETS_BOTTOM = this.getInsets().bottom;
 
         g2 = (Graphics2D)this.getGraphics();
 
         playerOne = new Rectangle(Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Color.WHITE);
+        playerController = new PlayerController(playerOne, keyListener);
+
         ai = new Rectangle(Constants.SCREEN_WIDTH - Constants.PADDLE_WIDTH - Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Constants.PADDLE_COLOUR);
         ball = new Rectangle(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, Constants.BALL_WIDTH, Constants.PADDLE_COLOUR);
     }
 
     public void update(double dt) {
+        Image dbImage = createImage(getWidth(), getHeight());
+        Graphics dbGraphics = dbImage.getGraphics();
+        draw(dbGraphics);
+        g2.drawImage(dbImage, 0, 0, this);
+        playerController.update(dt);
+    }
+
+    public void draw(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
         playerOne.draw(g2);
         ai.draw(g2);
         ball.draw(g2);
-
-        if (keyListener.isKeyPressed(KeyEvent.VK_UP)) {
-            System.out.println("The user is pressing the up arrow.");
-        } else if (keyListener.isKeyPressed(KeyEvent.VK_DOWN)) {
-            System.out.println("The user is pressing the down arrow.");
-        }
     }
 
     public void run() {
@@ -46,8 +53,6 @@ public class Window extends JFrame implements Runnable {
             lastFrameTime = time;
 
             update(deltaTime);
-
-            try{ Thread.sleep(30); } catch (Exception _) { }
         }
     }
 }
