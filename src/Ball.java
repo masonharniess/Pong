@@ -90,7 +90,7 @@ public class Ball {
             this.velocityY = 0;
             this.velocityX = -150;
             if (rightScore >= Constants.WIN_SCORE) {
-                System.out.println("Right player won!");
+                Main.changeState(0);
             }
         } else if (this.rectangle.getX() > rightPaddle.getX() + rightPaddle.getWidth()) {
             int leftScore = Integer.parseInt(leftScoreText.text);
@@ -101,7 +101,7 @@ public class Ball {
             this.velocityY = 0;
             this.velocityX = 150;
             if (leftScore >= Constants.WIN_SCORE) {
-                System.out.println("Left player won!");
+                Main.changeState(0);
             }
         }
     }
