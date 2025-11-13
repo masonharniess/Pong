@@ -1,14 +1,17 @@
 public class Ball {
     public Rectangle rectangle;
     public Rectangle leftPaddle, rightPaddle;
+    public Text leftScoreText, rightScoreText;
 
     private double velocityY = 0;
     private double velocityX = -150.0;
 
-    public Ball(Rectangle rectangle, Rectangle leftPaddle, Rectangle rightPaddle) {
+    public Ball(Rectangle rectangle, Rectangle leftPaddle, Rectangle rightPaddle, Text leftScoreText, Text rightScoreText) {
         this.rectangle = rectangle;
         this.leftPaddle = leftPaddle;
         this.rightPaddle = rightPaddle;
+        this.leftScoreText = leftScoreText;
+        this.rightScoreText = rightScoreText;
     }
 
     // compute rebound angle in radians based on where the ball struck the paddle
@@ -77,5 +80,29 @@ public class Ball {
 
         this.rectangle.setX(this.rectangle.getX() + velocityX * dt);
         this.rectangle.setY(this.rectangle.getY() + velocityY * dt);
+
+        if (this.rectangle.getX() + this.rectangle.getWidth() < leftPaddle.getX()){
+            int rightScore = Integer.parseInt(rightScoreText.text);
+            rightScore++;
+            rightScoreText.text = "" + rightScore;
+            this.rectangle.setX(Constants.SCREEN_WIDTH / 2.0);
+            this.rectangle.setY(Constants.SCREEN_HEIGHT / 2.0);
+            this.velocityY = 0;
+            this.velocityX = -150;
+            if (rightScore >= Constants.WIN_SCORE) {
+                System.out.println("Right player won!");
+            }
+        } else if (this.rectangle.getX() > rightPaddle.getX() + rightPaddle.getWidth()) {
+            int leftScore = Integer.parseInt(leftScoreText.text);
+            leftScore++;
+            leftScoreText.text = "" + leftScore;
+            this.rectangle.setX(Constants.SCREEN_WIDTH / 2.0);
+            this.rectangle.setY(Constants.SCREEN_HEIGHT / 2.0);
+            this.velocityY = 0;
+            this.velocityX = 150;
+            if (leftScore >= Constants.WIN_SCORE) {
+                System.out.println("Left player won!");
+            }
+        }
     }
 }

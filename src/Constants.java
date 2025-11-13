@@ -17,4 +17,10 @@ public class Constants {
 
     public static double TOOLBAR_HEIGHT;
     public static double INSETS_BOTTOM;
+
+    public static final int TEXT_Y_POS = 50;
+    public static final int TEXT_X_POS = 10;
+    public static final int TEXT_SIZE = 20;
+
+    public static final int WIN_SCORE = 3;
 }
