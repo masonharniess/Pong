@@ -15,6 +15,5 @@ public class AIController {
         } else if (ball.getY() + ball.getHeight() > playerController.rectangle.getY() + playerController.rectangle.getHeight()) {
             this.playerController.moveDown(dt);
         }
-
     }
 }

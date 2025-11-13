@@ -24,15 +24,15 @@ public class Window extends JFrame implements Runnable {
 
         g2 = (Graphics2D)this.getGraphics();
 
-        leftScoreText = new Text(0, new Font("Times New Roman", Font.PLAIN, Constants.TEXT_SIZE), Constants.SCREEN_WIDTH / 2 - 30, Constants.TEXT_Y_POS);
-        rightScoreText = new Text(0, new Font("Times New Roman", Font.PLAIN, Constants.TEXT_SIZE), Constants.SCREEN_WIDTH / 2 + 20, Constants.TEXT_Y_POS);
+        leftScoreText = new Text(0, new Font("Times New Roman", Font.PLAIN, Constants.TEXT_SIZE), Constants.SCREEN_WIDTH / 2.0 - 30, Constants.TEXT_Y_POS);
+        rightScoreText = new Text(0, new Font("Times New Roman", Font.PLAIN, Constants.TEXT_SIZE), Constants.SCREEN_WIDTH / 2.0 + 20, Constants.TEXT_Y_POS);
 
         playerOne = new Rectangle(Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Color.WHITE);
         playerController = new PlayerController(playerOne, keyListener);
 
         ai = new Rectangle(Constants.SCREEN_WIDTH - Constants.PADDLE_WIDTH - Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Constants.PADDLE_COLOUR);
 
-        ballRectangle = new Rectangle(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, Constants.BALL_WIDTH, Constants.PADDLE_COLOUR);
+        ballRectangle = new Rectangle(Constants.SCREEN_WIDTH / 2.0, Constants.SCREEN_HEIGHT / 2.0, Constants.BALL_WIDTH, Constants.BALL_WIDTH, Constants.PADDLE_COLOUR);
         ball = new Ball(ballRectangle, playerOne, ai, leftScoreText, rightScoreText);
 
         aiController = new AIController(new PlayerController(ai), ballRectangle);
@@ -74,8 +74,6 @@ public class Window extends JFrame implements Runnable {
 
             update(deltaTime);
         }
-
         this.dispose();
-        return;
     }
 }

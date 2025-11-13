@@ -32,9 +32,6 @@ public class MainMenu extends JFrame implements Runnable {
         draw(dbGraphics);
         g2.drawImage(dbImage, 0, 0, this);
 
-//        System.out.println(mouseListener.getMouseX());
-//        System.out.println(mouseListener.getMouseY());
-
         if (mouseListener.getMouseX() > startGame.x && mouseListener.getMouseX() < startGame.x + startGame.width && mouseListener.getMouseY() > startGame.y - startGame.height / 2.0 && mouseListener.getMouseY() < startGame.y + startGame.height / 2.0) {
             startGame.colour = new Color(158, 158, 158);
 
@@ -53,7 +50,6 @@ public class MainMenu extends JFrame implements Runnable {
         } else {
             exitGame.colour = Color.WHITE;
         }
-
     }
 
     public void draw(Graphics g) {
@@ -64,7 +60,6 @@ public class MainMenu extends JFrame implements Runnable {
         title.draw(g2);
         startGame.draw(g2);
         exitGame.draw(g2);
-
     }
 
     public void stop() {
@@ -81,6 +76,5 @@ public class MainMenu extends JFrame implements Runnable {
             update(deltaTime);
         }
         this.dispose();
-        return;
     }
 }

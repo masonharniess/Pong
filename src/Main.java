@@ -25,7 +25,6 @@ public class Main {
             state = newState;
         } else if (newState == 2) {
             menu.stop();
-
         }
         state = newState;
     }
