@@ -72,7 +72,7 @@ public class MainMenu extends JFrame implements Runnable {
     }
 
     public void run() {
-        double lastFrameTime = 0.0;
+        double lastFrameTime = Time.getTime();
         while (isRunning) {
             double time = Time.getTime();
             double deltaTime = time - lastFrameTime;
